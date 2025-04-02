@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас | The Weekly Proton Times
+    </title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+        header {
+            padding: 50px 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .center {
+            text-align: center;
+        }
+        .about, .team {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            padding: 60px 20px;
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .member {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .member:hover {
+            transform: scale(1.05);
+        }
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        header {
+            background: rgba(245, 245, 248, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 44px;
+        }
+        nav ul {
+            margin-top: 9px;
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 270;
+            font-size: 12px;
+        }
+        nav li {
+            position: relative;
+        }
+        nav li:hover > ul,
+        nav li ul:hover {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        nav ul ul {
+            display: none;
+            position: absolute;
+            background-color: #f5f5f8;
+        }
+        nav ul .moscow-menu ul {
+            position: absolute;
+            top: 100%;
+            left: -54.7vw;
+            width: 115vw;
+            background: rgba(245, 245, 248, 0.8);
+            padding: 10px 0;
+            z-index: 1000;
+            margin-top: 0px
+        }
+        nav ul .news-menu ul {
+            position: absolute;
+            top: 100%;
+            left: -35vw;
+            width: 120vw;
+            background-color: rgba(245, 245, 248, 0.8);
+            padding: 10px 0;
+            z-index: 1000;
+            margin-top: 0px
+        }
+        nav ul .victoria-menu ul {
+            position: absolute;
+            top: 100%;
+            left: -41vw;
+            width: 115vw;
+            background-color: rgba(245, 245, 248, 0.8);
+            padding: 10px 0;
+            z-index: 1000;
+            margin-top: 0px
+        }
+        nav ul .newspaper-menu ul {
+            position: absolute;
+            top: 100%;
+            left: -75vw;
+            width: 115vw;
+            background-color: rgba(245, 245, 248, 0.8);
+            padding: 10px 0;
+            z-index: 1000;
+            margin-top: 0px
+        }
+        nav ul .about-us-menu ul {
+            position: absolute;
+            top: 100%;
+            left: -87vw;
+            width: 125vw;
+            background-color: rgba(245, 245, 248, 0.8);
+            padding: 10px 0;
+            z-index: 1000;
+            margin-top: 0px
+        }
+        nav ul ul li {
+            margin-right: 500px;
+        }
+        nav ul ul li a {
+            font-size: 12px;
+            color: #333;
+            display: block;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        body.menu-open {
+            position: relative;
+        }
+
+        body.menu-open::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 998;
+            opacity: 1;
+            transition: backdrop-filter 0.4s ease, opacity 0.4s ease;
+        }
+        body:not(.menu-open)::before {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            pointer-events: none;
+        }
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(0px);
+            z-index: 998;
+            opacity: 0;
+            transition: backdrop-filter 0.4s ease, opacity 0.4s ease;
+            pointer-events: none;
+        }
+        body.menu-open .blur-overlay {
+            opacity: 1;
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+        }
+        .hero {
+            padding: 100px 20px 80px;
+            background: url('hero.jpg') no-repeat center/cover;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px 20px;
+            margin-top: 50px;
+        }
+        .product {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        body {
+            padding-top: 50px;
+        }
+        #News {
+            height: 35px;
+            color: #fff;
+            background: gba(245, 245, 248);
+        }
+        #Project-Beautifle-Moscow {
+            height: 35px;
+            color: #fff;
+        }
+        #Project-Beautifle-Moscow2 {
+            height: 25px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 5px;
+            color: #fff;
+            background: linear-gradient(to right, red, violet);
+        }   
+        #ChooseYear, #ChooseNews, #Rayo {
+            color: #79797e;
+        }
+        #Pres {
+            font-size: 30px;
+        }
+        #ChooseNewsClass, #Arb {
+            font-size: 30px;
+            margin-right: 900px;
+            margin-bottom: -10px;
+            background-color: red;
+        }
+        #ChooseNewsSchool, #Fili {
+            font-size: 30px;
+            margin-right: 900px;
+            margin-bottom: -11px;
+            background-color: red;
+        }
+        .second-sublist {
+            color: black;
+            font-size: 14px;
+            margin-bottom: -10px;
+            width: 200px;
+        }
+        .third-sublist {
+            color: black;
+            font-size: 14px;
+            margin-bottom: -10px;
+            width: 200px;
+        }
+        .title-of-the-first-sublist {
+            color: #79797e;
+        }
+        .title-of-the-second-sublist {
+            color: #79797e;
+        }
+        .title-of-the-third-sublist {
+            color: #79797e;
+        }
+        #School {
+            color: black;
+            margin-left: 14.3vw;
+            width: 200px;
+            text-align: left;
+        }
+        #rayony {
+            color: black;
+            margin-left: 22vw;
+            width: 200px;
+            text-align: left;
+        }
+        #ChooseYear {
+            color: black;
+            margin-left: 14.5vw;
+            width: 200px;
+            text-align: left;
+        }
+        #ChooseYear2 {
+            color: black;
+            margin-left: 29vw;
+            width: 200px;
+            text-align: left;
+        }
+        #Projects {
+            color: black;
+            margin-left: 36vw;
+            width: 200px;
+            text-align: left;
+        }
+        #dostoprim {
+            color: black;
+            margin-top: -199px;
+            text-align: left;
+            margin-left: 49.2vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+
+        #LastNews {
+            color: black;
+            margin-top: -147px;
+            text-align: left;
+            margin-left: 43vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        #Months {
+            color: black;
+            margin-top: -144px;
+            text-align: left;
+            margin-left: 44.3vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        #Months2 {
+            color: black;
+            margin-top: -98px;
+            text-align: left;
+            margin-left: 58.7vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        #Basic-Questions {
+            color: black;
+            margin-top: -322px;
+            text-align: left;
+            margin-left: 63vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        .third-sublist-glav {
+            color: black;
+            margin-top: -301px;
+            text-align: left;
+            margin-left: 71vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        .third-sublist-chsl {
+            color: black;
+            margin-top: -301px;
+            text-align: left;
+            padding-left: 20px;
+            margin-left: 69.2vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        .third-sublist-fg {
+            color: black;
+            margin-top: -301px;
+            text-align: left;
+            padding-left: 20px;
+            margin-left: 83.5vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        .third-sublist-fgf {
+            color: black;
+            margin-top: -301px;
+            text-align: left;
+            padding-left: 20px;
+            margin-left: 90.5vw;
+            width: 200px;
+            margin-bottom: 400px;
+            height: 1px;
+        }
+        .third-sublist-djd {
+            color: black;
+            margin-top: -301px;
+            text-align: left;
+            padding-left: 20px;
+            margin-left: 77vw;
+            width: 200px;
+            margin-bottom: 300px;
+            height: 1px;
+        }
+        #new-new {
+            margin-top: -25px;
+            margin-bottom: -5px;
+        }
+        #new-new-text {
+            font-size: 15px;
+            font-weight: 270;
+        }
+        #Telegram {
+            font-size: 30px;
+            margin-right: 900px;
+            margin-bottom: 10px;
+            background-color: red;
+        }
+        #bea-msk {
+            font-size: 25px;
+            width: 120px;
+            margin-bottom: -10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 5px;
+            color: white;
+            background: linear-gradient(to right, red, violet);
+        }
+        #name-of-the-compny, #where {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100vw;
+        }
+
+        #name-of-the-compny {
+            font-size: 90px;
+            font-weight: bold;
+            margin-top: 35vh;
+        }
+
+        #where {
+            font-size: 24px;
+            font-weight: 200;
+            margin-top: 10px;
+            margin-bottom: 50vh;
+        }
+        h5 a {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 200;
+            text-decoration: none;
+            color: #007aff; /* Цвет ссылки в стиле Apple */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        h5 a::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #007aff;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            transition: transform 0.3s ease;
+            transform: scaleX(0);
+        }
+
+        h5 a:hover {
+            color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        h5 a:hover::after {
+            transform: scaleX(1);
+        }
+        .foot {
+            display: inline-block;
+            font-size: 17px;
+            font-weight: 200;
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .foot::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: white;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            transition: transform 0.3s ease;
+            transform: scaleX(0);
+        }
+
+        .foot:hover {
+            color: #ebebeb;
+            transform: translateY(-2px);
+        }
+
+        .foot:hover::after {
+            transform: scaleX(1);
+        }
+
+        footer {
+            background: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        .footer-container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-info {
+            font-size: 30px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ffffff;
+        }
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #dedede;
+            margin-bottom: 10px;
+        }
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-column li {
+            margin-bottom: 8px;
+        }
+        .footer-column a {
+            text-decoration: none;
+            color: #848484;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+            padding-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-direction: column;
+            }
+            .footer-column {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+            const blurOverlay = document.querySelector(".blur-overlay");
+            const menuItems = document.querySelectorAll("nav > ul > li > div, nav > ul > li > div > a, nav ul ul");
+
+            menuItems.forEach(item => {
+                item.addEventListener("mouseenter", function () {
+                    body.classList.add("menu-open");
+                });
+
+                item.addEventListener("mouseleave", function () {
+                    setTimeout(() => {
+                        if (![...menuItems].some(i => i.matches(":hover"))) {
+                            body.classList.remove("menu-open");
+                        }
+                    }, 300);
+                });
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const companyName = document.getElementById("name-of-the-compny");
+            const slogan = document.getElementById("where");
+
+            companyName.style.opacity = "0";
+            companyName.style.transform = "translateY(20px)";
+            slogan.style.opacity = "0";
+            slogan.style.transform = "translateY(20px)";
+
+            setTimeout(() => {
+                companyName.style.transition = "opacity 1.5s ease-out, transform 1.5s ease-out";
+                companyName.style.opacity = "1";
+                companyName.style.transform = "translateY(0)";
+            }, 500); 
+
+            setTimeout(() => {
+                slogan.style.transition = "opacity 1.5s ease-out, transform 1.5s ease-out";
+                slogan.style.opacity = "1";
+                slogan.style.transform = "translateY(0)";
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <div class="blur-overlay"></div>
+    <!-- Шапка -->
+    <header>
+        <!-- Навигация -->
+        <nav>
+            <ul>
+                <!-- W -->
+                <li>
+                    <div>
+                        <a href="main.html">
+                            <b>
+                                W
+                            </b>
+                        </a>
+                    </div>
+                </li>
+                <!-- Новости -->
+                <li class="news-menu">
+                    <div id="News">
+                        <a href="#">
+                            Новости
+                        </a>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div id="School">
+                                    <h5 class="title-of-the-first-sublist">Выбор Новостей</h5>
+                                    <a href="#1"><h1 id="ChooseNewsSchool"><b>Школьные</b></h1></a>
+                                    <a href="#2"><h1 id="ChooseNewsClass"><b>Класса</b></h1></a>
+                                </div>
+                                <div id="LastNews">
+                                    <h5 class="title-of-the-second-sublist">Последние Новости</h5>
+                                    <a href="#"><h1 class="second-sublist"><b>Каникулы</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Дежурство</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Ещё</b></h1></a>
+                                </div>
+                                <div class="third-sublist-chsl">
+                                    <h5 class="title-of-the-third-sublist">Новости По Числам</h5>
+                                    <a href="#"><h1 class="third-sublist"><b>21.03.2025</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>20.03.2025</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>19.03.2025</b></h1></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Виктория -->
+                <li class="victoria-menu">
+                    <div id="News">
+                        <a href="#">
+                            Виктория
+                        </a>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div id="ChooseYear">
+                                    <h5 class="title-of-the-first-sublist">Выбор года</h5>
+                                    <a href="#1"><h1 id="ChooseNewsSchool"><b>2024</b></h1></a>
+                                    <a href="#2"><h1 id="ChooseNewsClass"><b>2025</b></h1></a>
+                                </div>
+                                <div id="Months">
+                                    <h5 class="title-of-the-second-sublist">Месяцы</h5>
+                                    <a href="#"><h1 class="second-sublist"><b>Январь</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Февраль</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Март</b></h1></a>
+                                </div>
+                                <div class="third-sublist-glav">
+                                    <h5 class="title-of-the-third-sublist">О нас</h5>
+                                    <a href="#"><h1 class="third-sublist"><b>Как Работает ИИ</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>История Проекта</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>Команда Разработчиков</b></h1></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Проект Красивая Москва -->
+                <li class="moscow-menu">
+                    <div id="Project-Beautifle-Moscow"><div id="Project-Beautifle-Moscow2"><a href="#" style="color: white;">Проект Красивая Москва</a></div></div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div id="rayony">
+                                    <h5 class="title-of-the-first-sublist">Районы</h5>
+                                    <a href="#1"><h1 id="Fili"><b>Фили</b></h1></a>
+                                    <a href="#2"><h1 id="Arb"><b>Арбат</b></h1></a>
+                                    <a href="#3"><h1 id="Pres"><b>Пресненский</b></h1></a>
+                                </div>
+                                <div id="dostoprim">
+                                    <h5 class="title-of-the-second-sublist">Достопримечательности</h5>
+                                    <a href="#"><h1 class="second-sublist"><b>Кремль</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Большой Театр</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Патриаршие Пруды</b></h1></a>
+                                </div>
+                                <div class="third-sublist-djd">
+                                    <h5 class="title-of-the-third-sublist">Выпуски</h5>
+                                    <a href="#"><h1 class="third-sublist"><b>Первый выпуск</b></h1></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Газета -->
+                <li class="newspaper-menu">
+                    <div id="News">
+                        <a href="#">
+                            Газета
+                        </a>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div id="ChooseYear2">
+                                    <h5 class="title-of-the-first-sublist">Выбор года</h5>
+                                    <a href="#2"><h1 id="ChooseNewsClass"><b>2025</b></h1></a>
+                                </div>
+                                <div id="Months2">
+                                    <h5 class="title-of-the-second-sublist">Месяцы</h5>
+                                    <a href="#"><h1 class="second-sublist"><b>Январь</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Февраль</b></h1></a>
+                                    <a href="#"><h1 class="second-sublist"><b>Март</b></h1></a>
+                                </div>
+                                <div class="third-sublist-fg">
+                                    <h5 class="title-of-the-third-sublist">Главные Новости Недели</h5>
+                                    <a href="#"><h1 class="third-sublist"><b>Дежурство</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>Каникулы</b></h1></a>
+                                    <a href="#"><h1 class="third-sublist"><b>Проект Красивая Москва</b></h1></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="about-us-menu"><div id="News"><a href="main.html">Главная</a></div></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Главное название -->
+    <section id="name-of-the-compny">The Weekly Proton Times</section>
+    <section id="where">Где идеи встречаются с реальностью.</section>
+
+    <div class="center">
+        <section class="about" style="margin-bottom: -150px;">
+            <div class="container">
+                <h1>О нас</h1>
+                <p>Мы не просто рассказываем новости — мы создаем новый стандарт медиа. Чистый дизайн. Четкая подача. Глубокий смысл. Мы верим, что информация должна быть понятной, качественной и вдохновляющей.</p>
+            </div>
+        </section>
+
+        <section class="about" style="margin-bottom: -150px;">
+            <div class="container">
+                <h2>Наша миссия</h2>
+                <p>Мы живем в мире, где поток информации бесконечен. Наша задача — отбирать главное, анализировать детали и представлять вам только то, что действительно важно. Мы превращаем сложное в доступное, разрозненные факты — в целостную картину.</p>
+            </div>
+        </section>
+
+        <section class="team">
+            <div class="container">
+                <h2>Наша команда</h2>
+                <div class="team-members">
+                    <div class="member">
+                        <img src="team2.jpg" alt="Член команды">
+                        <h3>Терников<br>Станислав</h3>
+                        <p>Журналист</p>
+                    </div>
+                    <div class="member">
+                        <img src="team1.jpg" alt="Член команды">
+                        <h3>Гескин Роман</h3>
+                        <p>Главный редактор</p>
+                    </div>
+                    <div class="member">
+                        <img src="team2.jpg" alt="Член команды">
+                        <h3>Чиков Виктор</h3>
+                        <p>Журналист</p>
+                    </div>
+                    <!--<div class="member"><img src="team2.jpg" alt="Член команды"><h3>Коникова Нелли</h3><p>Оператор</p></div>-->
+                </div>
+            </div>
+
+            <h5 style="margin-bottom: -20px;"><a href="#">Хотите к нам?</a></h5>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p class="footer-info">The Weekly Proton Times</p>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Проект</h4>
+                    <ul>
+                        <li><a class="foot" href="about us.html">О нас</a></li>
+                        <li><a class="foot" href="survey.html">Съемки</a></li>
+                        <li><a class="foot" href="contacts.html">Контакты</a></li>
+                        <li><a class="foot" href="#">Медиа-ресурсы</a></li>
+                        <li><a class="foot" href="#">Новости и пресс-релизы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a class="foot" href="contacts.html">Отзывы и предложения</a></li>
+                        <li><a class="foot" href="contacts.html">Реклама на сайте</a></li>
+                        <li><a class="foot" href="contacts.html">Присоедениться</a></li>
+                        <li><a class="foot" href="rules.html">Правила</a></li>
+                        <li><a class="foot" href="FAQ.html">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Проекты</h4>
+                    <ul>
+                        <li><a class="foot" href="#">Красивая Москва</a></li>
+                        <li><a class="foot" href="#">Старшие младшим</a></li>
+                        <li><a class="foot" href="https://web.telegram.org/a/#-1001862089846">Telegram канал</a></li>
+                        <li><a class="foot" href="https://dzen.ru/id/65678192af22215051f2e370?share_to=link">Dzen канал</a></li>
+                        <li><a class="foot" href="#">Виктория</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Соцсети</h4>
+                    <ul>
+                        <li><a class="foot" href="https://web.telegram.org/a/#-1001862089846">Telegram</a></li>
+                        <li><a class="foot" href="https://dzen.ru/id/65678192af22215051f2e370?share_to=link">Dzen</a></li>
+                        <li><a class="foot" href="https://vk.com/theweeklyprotontimes">VK</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Weekly Proton Times. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll(".about, .team");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
