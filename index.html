@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Портфолио | Роман</title>
+  <title>Портфолио | Алексей</title>
   <style>
     * {
       margin: 0;
@@ -145,23 +145,42 @@
         color: var(--muted-color);
         margin: 0.3rem 0 0.5rem; 
     }
+
+    #langToggle {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        color: var(--text-color);
+        transition: color 0.3s;
+    }
   </style>
 </head>
 <body>
+<button id="langToggle" style="position: fixed; top: 1rem; left: 1rem; background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--text-color);">EN</button>
 <button id="themeToggle" style="position: fixed; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">☽</button>
+
 <header>
-  <h1>Роман — разработчик</h1>
-  <p id="zag">Пишу код. Учусь. Экспериментирую с AI и интерфейсами.</p>
+  <h1 data-ru="Роман — разработчик" data-en="Roman — Developer">Роман — разработчик</h1>
+  <p id="zag" data-ru="Пишу код. Учусь. Экспериментирую с AI и интерфейсами." data-en="I write code. I learn. I experiment with AI and interfaces.">
+    Пишу код. Учусь. Экспериментирую с AI и интерфейсами.
+  </p>
 </header>
 
 <main>
   <section>
-    <h2>Обо мне</h2>
-    <p>Мне 14. Люблю писать сайты, играть с нейросетями и делать простые вещи красиво. Сейчас изучаю Python, HTML, CSS. Параллельно веду блог в Telegram.</p>
+    <h2 data-ru="Обо мне" data-en="About me">Обо мне</h2>
+    <p data-ru="Мне 14. Люблю писать сайты, играть с нейросетями и делать простые вещи красиво. Сейчас изучаю Python, HTML, CSS. Параллельно веду блог в Telegram." 
+       data-en="I'm 14. I love building websites, playing with neural networks, and making simple things beautiful. Currently learning Python, HTML, CSS. Also running a Telegram blog.">
+       Мне 14. Люблю писать сайты, играть с нейросетями и делать простые вещи красиво. Сейчас изучаю Python, HTML, CSS. Параллельно веду блог в Telegram.
+    </p>
   </section>
 
   <section>
-    <h2>Навыки</h2>
+    <h2 data-ru="Навыки" data-en="Skills">Навыки</h2>
     <ul>
       <li>Python</li>
       <li>HTML / CSS</li>
@@ -170,39 +189,66 @@
   </section>
 
   <section>
-    <h2>Проекты</h2>
+    <h2 data-ru="Проекты" data-en="Projects">Проекты</h2>
 
     <div class="project">
-      <h3>Telegram-бот: AI-ассистент</h3>
-      <p>Мой бот в Telegram с нейросетью и голосовыми.</p>
-      <a href="https://t.me/yourbot" target="_blank">Посмотреть →</a>
+      <h3 data-ru="Telegram-бот: AI-ассистент" data-en="Telegram Bot: AI Assistant">Telegram-бот: AI-ассистент</h3>
+      <p data-ru="Мой бот в Telegram с нейросетью и голосовыми." 
+         data-en="My Telegram bot with neural network and voice support.">
+         Мой бот в Telegram с нейросетью и голосовыми.
+      </p>
+      <a href="https://t.me/yourbot" target="_blank" data-ru="Посмотреть →" data-en="View →">Посмотреть →</a>
     </div>
 
     <div class="project">
-      <h3>Мини-сайт</h3>
-      <p>Чистый HTML, адаптив, без фреймворков. Легко читается и загружается моментально.</p>
-      <a href="https://username.github.io/" target="_blank">Открыть →</a>
+      <h3 data-ru="Мини-сайт" data-en="Mini Site">Мини-сайт</h3>
+      <p data-ru="Чистый HTML, адаптив, без фреймворков. Легко читается и загружается моментально." 
+         data-en="Pure HTML, responsive, no frameworks. Easy to read and loads instantly.">
+         Чистый HTML, адаптив, без фреймворков. Легко читается и загружается моментально.
+      </p>
+      <a href="https://username.github.io/" target="_blank" data-ru="Открыть →" data-en="Open →">Открыть →</a>
     </div>
   </section>
 
   <section class="contact">
-    <h2>Контакты</h2>
-    <p>Email: <a href="the73112@gmail.com">the73112@gmail.com</a></p>
+    <h2 data-ru="Контакты" data-en="Contacts">Контакты</h2>
+    <p>Email: <a href="mailto:the73112@gmail.com">the73112@gmail.com</a></p>
     <p>Telegram: <a href="https://t.me/RomchikOpasnost">@RomchikOpasnost</a></p>
   </section>
 </main>
 
-<footer>
-  © 2025 Роман. Сделано без шаблонов с любовью.
+<footer data-ru="© 2025 Алексей. Сделано без шаблонов." data-en="© 2025 Alexey. Made without templates.">
+  © 2025 Алексей. Сделано без шаблонов.
 </footer>
-<script>
-    const btn = document.getElementById('themeToggle');
-    const body = document.body;
-  
-    btn.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      btn.textContent = body.classList.contains('dark') ? '☼' : '☽';
-    });
-  </script>
+    <script>
+        const btn = document.getElementById('themeToggle');
+        const body = document.body;
+    
+        btn.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        btn.textContent = body.classList.contains('dark') ? '☼' : '☽';
+        });
+    </script>
+    <script>
+        const langBtn = document.getElementById('langToggle');
+        const elementsWithLang = document.querySelectorAll('[data-ru]');
+      
+        function setLanguage(lang) {
+          elementsWithLang.forEach(el => {
+            el.textContent = el.dataset[lang];
+          });
+          langBtn.textContent = lang === 'ru' ? 'EN' : 'RU';
+          localStorage.setItem('lang', lang);
+        }
+      
+        langBtn.addEventListener('click', () => {
+          const currentLang = localStorage.getItem('lang') || 'ru';
+          const newLang = currentLang === 'ru' ? 'en' : 'ru';
+          setLanguage(newLang);
+        });
+      
+        const savedLang = localStorage.getItem('lang') || 'ru';
+        setLanguage(savedLang);
+    </script>
 </body>
 </html>
